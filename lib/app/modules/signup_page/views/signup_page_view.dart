@@ -6,7 +6,7 @@ import 'package:get/get.dart';
 import '../controllers/signup_page_controller.dart';
 
 class SignupPageView extends GetView<SignupPageController> {
-  const SignupPageView({Key? key}) : super(key: key);
+ const SignupPageView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -34,6 +34,7 @@ class SignupPageView extends GetView<SignupPageController> {
                     height: 25,
                   ),
                   TextFormField(
+                    controller: controller.nameTextEditingController,
                     decoration: const InputDecoration(
                       border: OutlineInputBorder(),
                       hintText: 'Name',
@@ -55,12 +56,18 @@ class SignupPageView extends GetView<SignupPageController> {
                     height: 25,
                   ),
                   TextFormField(
+                    controller: controller.emailTextEditingController,
                     decoration: const InputDecoration(
                       border: OutlineInputBorder(),
                       hintText: 'Email',
                       labelText: 'Email',
                     ),
                     validator: (value) {
+                      if(value!.isNotEmpty && GetUtils.isEmail(value)){
+                        return value;
+                      }else{
+                        Get.snackbar('Sorry!!!', 'this is not valied for that');
+                      }
                       var validator = Validator(
                         validators: [
                           RequiredValidator(),
@@ -79,6 +86,7 @@ class SignupPageView extends GetView<SignupPageController> {
                     height: 25,
                   ),
                   TextFormField(
+                    controller: controller.passwordTextEditingController,
                     decoration: const InputDecoration(
                       border: OutlineInputBorder(),
                       hintText: 'Password',
@@ -101,7 +109,10 @@ class SignupPageView extends GetView<SignupPageController> {
                   const SizedBox(
                     height: 25,
                   ),
-                  ElevatedButton(onPressed: () {}, child: const Text('Signup')),
+                  ElevatedButton(onPressed: () {
+                    print('login clicked');
+                    controller.createUser();
+                  }, child: const Text('Signup')),
                 ],
               ),
             ),
