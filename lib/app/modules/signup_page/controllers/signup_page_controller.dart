@@ -1,16 +1,22 @@
 import 'dart:convert';
+import 'package:api_basic_flutter/app/model/DioClient.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
-import '../../../model/AuthorizationInterceptor.dart';
 import '../../../model/DioException.dart';
 import '../../../model/UserModel.dart';
+import '../../../model/endPoint.dart';
+import '../../../routes/app_pages.dart';
 
 class SignupPageController extends GetxController {
 
   TextEditingController nameTextEditingController = TextEditingController();
   TextEditingController emailTextEditingController = TextEditingController();
   TextEditingController passwordTextEditingController = TextEditingController();
+
+  DioClient dioClient = DioClient();
+
 
   Dio dio = Dio();
 
@@ -19,31 +25,14 @@ class SignupPageController extends GetxController {
   void onInit() {
     super.onInit();
   }
-
-  Future<UserModel?> createUser() async {
-
-    try {
-      var data = {
-        'name': nameTextEditingController.text,
-        'email': emailTextEditingController.text,
-        'password': passwordTextEditingController.text,};
-      final response = await dio.post(
-        '/users',
-        options: Options(
-          headers: <String, String>{
-            'Content-Type': 'application/json; charset=UTF-8',
-          },
-        ),
-      );
-      return UserModel.fromJson(jsonDecode(response.data));
-    } on DioError catch (err) {
-      final errorMessage = DioException.fromDioError(err).toString();
-      throw errorMessage;
-    } catch (e) {
-      throw e.toString();
-    }
+  /////////////// Create user method
+  createUser() async {
+    UserModel userModel = UserModel(name: nameTextEditingController.text, email: emailTextEditingController.text, password: passwordTextEditingController.text);
+    await dioClient.createUser(userModel: userModel).then((value){
+     Get.toNamed(Routes.SIGIN_PAGE);
+     Get.snackbar("Congratulation!!!!", "Successfully User Created", snackPosition: SnackPosition.BOTTOM);
+   });
   }
-
   @override
   void onReady() {
     super.onReady();
@@ -56,4 +45,3 @@ class SignupPageController extends GetxController {
 
   void increment() => count.value++;
 }
-
