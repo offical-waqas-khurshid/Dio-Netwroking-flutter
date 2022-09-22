@@ -1,9 +1,5 @@
-import 'package:api_basic_flutter/app/model/UserModel.dart';
 import 'package:flutter/material.dart';
-import 'package:form_validation/form_validation.dart';
-
 import 'package:get/get.dart';
-
 import '../controllers/signup_page_controller.dart';
 
 class SignupPageView extends GetView<SignupPageController> {

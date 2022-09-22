@@ -13,11 +13,53 @@ class SiginPageView extends GetView<SiginPageController> {
         title: const Text('SiginPageView'),
         centerTitle: true,
       ),
-      body: Center(
-        child: Text(
-          'SiginPageView is working',
-          style: TextStyle(fontSize: 20),
-        ),
+      body: Column(
+        children: [
+          Form(
+            child: Padding(
+              padding: const EdgeInsets.all(15.0),
+              child: Column(
+                children: [
+                  const SizedBox(
+                    height: 25,
+                  ),
+                  const Text(
+                    'SignIn',
+                    style: TextStyle(fontSize: 32, fontWeight: FontWeight.w700),
+                  ),
+                  const SizedBox(
+                    height: 25,
+                  ),
+                  TextFormField(
+                    controller: controller.emailTextEditingController,
+                    decoration: const InputDecoration(
+                      border: OutlineInputBorder(),
+                      hintText: 'Email',
+                      labelText: 'Email',
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 25,
+                  ),
+                  TextFormField(
+                    controller: controller.passwordTextEditingController,
+                    decoration: const InputDecoration(
+                      border: OutlineInputBorder(),
+                      hintText: 'Password',
+                      labelText: 'Password',
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 25,
+                  ),
+                  ElevatedButton(onPressed: () {
+                      controller.loginUser();
+                  }, child: const Text('SignIn')),
+                ],
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }

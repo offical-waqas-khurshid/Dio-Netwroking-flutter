@@ -1,4 +1,5 @@
 class Endpoints {
+
   Endpoints._();
 
   static const String baseURL = 'https://5an1bh.deta.dev/user/insert/';
