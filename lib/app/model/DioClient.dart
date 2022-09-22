@@ -8,7 +8,7 @@ import 'endPoint.dart';
 class DioClient{
   late final Dio _dio;
   DioClient(): _dio = Dio(BaseOptions(
-    baseUrl: 'https://5an1bh.deta.dev/user/insert/',
+    baseUrl: 'https://5an1bh.deta.dev/',
     connectTimeout: 8000,
     receiveTimeout: 3000,
     responseType: ResponseType.json,
@@ -18,7 +18,7 @@ class DioClient{
 
   Future<UserModel?> createUser({required UserModel userModel}) async {
     try {
-      final createUserResponse = await _dio.post(Endpoints.baseURL, data: userModel.toJson());
+      final createUserResponse = await _dio.post(Endpoints.registerEndPointURL, data: userModel.toJson());
       if (createUserResponse.statusCode == 200) {
         return UserModel.fromJson(createUserResponse.data);
       } else {
@@ -37,13 +37,17 @@ class DioClient{
 
  Future<UserModel?> loginUser({required UserModel userModel}) async{
     try{
-     final loginUserResponse = await _dio.post(Endpoints.baseURL, data: userModel.toJson());
+      print("${userModel.email}|${userModel.password}");
+     final loginUserResponse = await _dio.post(Endpoints.loginEndPointURL, data: userModel.toJson());
      if(loginUserResponse.statusCode == 200){
        return UserModel.fromJson(loginUserResponse.data);
      }else{
        throw Exception('Filled to login user');
      }
     }on DioError catch (err){
+      print("***********");
+      print(err);
+      print("***********");
       final errorMessage = DioException.fromDioError(err).toString();
       throw errorMessage;
     }catch(e){

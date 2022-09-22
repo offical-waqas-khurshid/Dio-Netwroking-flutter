@@ -17,7 +17,7 @@ class SiginPageController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    dioClient.createUser(userModel: UserModel(name: ""));
+   // dioClient.createUser(userModel: UserModel(name: ""));
   }
     /////////////// user login method
    loginUser() async{
