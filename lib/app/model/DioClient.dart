@@ -68,6 +68,5 @@ class DioClient{
       if(kDebugMode) print(e);
         throw e.toString();
     }
-    return null;
  }
 }
