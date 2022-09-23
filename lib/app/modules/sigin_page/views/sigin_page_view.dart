@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 
+import '../../../routes/app_pages.dart';
 import '../controllers/sigin_page_controller.dart';
 
 class SiginPageView extends GetView<SiginPageController> {
@@ -54,6 +55,8 @@ class SiginPageView extends GetView<SiginPageController> {
                   ),
                   ElevatedButton(onPressed: () {
                       controller.loginUser();
+                      controller.getUser();
+                      Get.toNamed(Routes.HOME_PAGE);
                   }, child: const Text('SignIn')),
                 ],
               ),

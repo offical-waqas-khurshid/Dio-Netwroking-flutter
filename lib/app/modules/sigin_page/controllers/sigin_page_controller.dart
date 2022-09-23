@@ -27,6 +27,15 @@ class SiginPageController extends GetxController {
       Get.snackbar("Congratulation!!!!", "Successfully User Created", snackPosition: SnackPosition.BOTTOM);
     });
    }
+   
+   //////////// Get user method
+
+  getUser()async{
+    await dioClient.getUser().then((value) {
+      Get.toNamed(Routes.HOME_PAGE);
+      Get.snackbar("Congratulation!!!", "Welcome to home page");
+    });
+  }
 
 
   @override

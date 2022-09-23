@@ -33,7 +33,7 @@ class DioClient{
     }
   }
 
-  //////////// Login User
+  //////////// Login User method
 
  Future<UserModel?> loginUser({required UserModel userModel}) async{
     try{
@@ -45,15 +45,29 @@ class DioClient{
        throw Exception('Filled to login user');
      }
     }on DioError catch (err){
-      print("***********");
-      print(err);
-      print("***********");
       final errorMessage = DioException.fromDioError(err).toString();
       throw errorMessage;
-    }catch(e){
+     }catch(e){
       if(kDebugMode) print(e);
       throw e.toString();
     }
  }
 
+ /////////////// Get user method
+
+ Future<UserModel?> getUser() async {
+    try{
+      final getUserResponse = await _dio.get(Endpoints.baseURL);
+      if(getUserResponse.statusCode == 200){
+        return UserModel.fromJson(getUserResponse.data);
+      }
+    }on DioError catch(error){
+      final errorMessage = DioException.fromDioError(error).toString();
+      throw errorMessage;
+    }catch(e){
+      if(kDebugMode) print(e);
+        throw e.toString();
+    }
+    return null;
+ }
 }
